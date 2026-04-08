@@ -92,17 +92,23 @@ export class SettingsPanel {
         break;
       case "openFolder": {
         const dir = String(msg.value ?? "");
-        if (dir && fs.existsSync(dir)) {
-          const platform = process.platform;
-          if (platform === "win32") {
-            execFile("explorer.exe", [dir]);
-          } else if (platform === "darwin") {
-            execFile("open", [dir]);
-          } else {
-            execFile("xdg-open", [dir]);
+        if (!dir) break;
+        // 如果目录不存在，自动创建它（在 Linux 上技能目录通常不会预先存在）
+        if (!fs.existsSync(dir)) {
+          try {
+            fs.mkdirSync(dir, { recursive: true });
+          } catch {
+            vscode.window.showWarningMessage(`${t("msg.dirNotExist")}: ${dir}`);
+            break;
           }
+        }
+        const platform = process.platform;
+        if (platform === "win32") {
+          execFile("explorer.exe", [dir]);
+        } else if (platform === "darwin") {
+          execFile("open", [dir]);
         } else {
-          vscode.window.showWarningMessage(`${t("msg.dirNotExist")}: ${dir}`);
+          execFile("xdg-open", [dir]);
         }
         break;
       }
