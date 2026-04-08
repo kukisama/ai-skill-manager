@@ -1,0 +1,168 @@
+{
+  "name": "ai-skill-manager",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.2",
+  "publisher": "KukisamaTeam",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicekid1/ai-skill-manager"
+  },
+  "categories": ["Other"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "skillhub",
+          "title": "%viewContainer.title%",
+          "icon": "media/skillhub.svg"
+        }
+      ]
+    },
+    "views": {
+      "skillhub": [
+        {
+          "id": "skillhub.installed",
+          "name": "%view.installed.name%"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "skillhub.installed",
+        "contents": "%viewsWelcome.contents%",
+        "when": "skillhub.emptyInstalled"
+      }
+    ],
+    "commands": [
+      {
+        "command": "skillhub.search",
+        "title": "%command.search%",
+        "icon": "$(search)"
+      },
+      {
+        "command": "skillhub.install",
+        "title": "%command.install%"
+      },
+      {
+        "command": "skillhub.uninstall",
+        "title": "%command.uninstall%"
+      },
+      {
+        "command": "skillhub.upgradeAll",
+        "title": "%command.upgradeAll%",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "skillhub.refresh",
+        "title": "%command.refresh%",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "skillhub.openDetail",
+        "title": "%command.openDetail%"
+      },
+      {
+        "command": "skillhub.openSkillMd",
+        "title": "%command.openSkillMd%"
+      },
+      {
+        "command": "skillhub.openSettings",
+        "title": "%command.openSettings%",
+        "icon": "$(gear)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "skillhub.search",
+          "when": "view == skillhub.installed",
+          "group": "navigation"
+        },
+        {
+          "command": "skillhub.upgradeAll",
+          "when": "view == skillhub.installed",
+          "group": "navigation"
+        },
+        {
+          "command": "skillhub.refresh",
+          "when": "view == skillhub.installed",
+          "group": "navigation"
+        },
+        {
+          "command": "skillhub.openSettings",
+          "when": "view == skillhub.installed",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "skillhub.uninstall",
+          "when": "view == skillhub.installed && viewItem =~ /^skill(Symlink)?$/",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "%config.title%",
+      "properties": {
+        "skillhub.language": {
+          "type": "string",
+          "enum": ["auto", "zh", "en"],
+          "default": "auto",
+          "markdownDescription": "%config.language.desc%"
+        },
+        "skillhub.source": {
+          "type": "string",
+          "enum": ["china", "global"],
+          "default": "china",
+          "description": "%config.source.desc%"
+        },
+        "skillhub.targetClaude": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.targetClaude.desc%"
+        },
+        "skillhub.targetOpenclaw": {
+          "type": "boolean",
+          "default": false,
+          "description": "%config.targetOpenclaw.desc%"
+        },
+        "skillhub.targetAgent": {
+          "type": "boolean",
+          "default": false,
+          "description": "%config.targetAgent.desc%"
+        },
+        "skillhub.skillClickAction": {
+          "type": "string",
+          "enum": ["preview", "edit"],
+          "default": "preview",
+          "description": "%config.skillClickAction.desc%"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0",
+    "eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "yauzl": "^3.1.0",
+    "tar": "^7.0.0"
+  }
+}

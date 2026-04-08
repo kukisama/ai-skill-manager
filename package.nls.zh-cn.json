@@ -1,0 +1,22 @@
+{
+  "displayName": "AISkills 管理器",
+  "description": "发现、安装和管理 Claude、GitHub Copilot、OpenClaw 和 VS Code Agent 的 AI Skill。支持双数据源（国内 SkillHub / 国际 ClawHub）。",
+  "viewContainer.title": "AI Skills",
+  "view.installed.name": "已安装 Skill",
+  "viewsWelcome.contents": "暂无已安装 Skill\n[搜索并安装 Skill](command:skillhub.search)",
+  "command.search": "AI Skills: 搜索",
+  "command.install": "AI Skills: 安装",
+  "command.uninstall": "AI Skills: 卸载",
+  "command.upgradeAll": "AI Skills: 检查更新",
+  "command.refresh": "AI Skills: 刷新",
+  "command.openDetail": "AI Skills: 查看详情",
+  "command.openSkillMd": "AI Skills: 查看 SKILL.md",
+  "command.openSettings": "AI Skills: 控制面板",
+  "config.title": "AISkills 管理器",
+  "config.language.desc": "界面语言。`auto` = 跟随系统语言。",
+  "config.source.desc": "数据源：china = SkillHub（国内源），global = ClawHub（国际源）",
+  "config.targetClaude.desc": "部署到 ~/.claude/skills（VS Code Copilot / Claude，推荐）",
+  "config.targetOpenclaw.desc": "部署到 ~/.openclaw/workspace/skills（OpenClaw 兼容）",
+  "config.targetAgent.desc": "部署到 ~/.agents/skills（VS Code Agent）",
+  "config.skillClickAction.desc": "Skill 点击行为：preview = Markdown 预览，edit = 打开编辑"
+}

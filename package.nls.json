@@ -1,0 +1,22 @@
+{
+  "displayName": "AISkills Manager",
+  "description": "Discover, install, and manage AI skills for Claude, GitHub Copilot, OpenClaw, and VS Code Agent. Supports dual sources (China SkillHub / Global ClawHub).",
+  "viewContainer.title": "AI Skills",
+  "view.installed.name": "Installed Skills",
+  "viewsWelcome.contents": "No installed skills\n[Search and install skills](command:skillhub.search)",
+  "command.search": "AI Skills: Search",
+  "command.install": "AI Skills: Install",
+  "command.uninstall": "AI Skills: Uninstall",
+  "command.upgradeAll": "AI Skills: Check Updates",
+  "command.refresh": "AI Skills: Refresh",
+  "command.openDetail": "AI Skills: View Detail",
+  "command.openSkillMd": "AI Skills: View SKILL.md",
+  "command.openSettings": "AI Skills: Control Panel",
+  "config.title": "AISkills Manager",
+  "config.language.desc": "UI language / 界面语言. `auto` = follow OS language.",
+  "config.source.desc": "Source: china = SkillHub (China), global = ClawHub (International)",
+  "config.targetClaude.desc": "Deploy to ~/.claude/skills (VS Code Copilot / Claude, recommended)",
+  "config.targetOpenclaw.desc": "Deploy to ~/.openclaw/workspace/skills (OpenClaw compatible)",
+  "config.targetAgent.desc": "Deploy to ~/.agents/skills (VS Code Agent)",
+  "config.skillClickAction.desc": "Click action for skills: preview = Markdown preview, edit = open for editing"
+}
