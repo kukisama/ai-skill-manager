@@ -87,7 +87,8 @@ function extractZipWithYauzl(
 }
 
 /**
- * Fallback: 写 Buffer 到临时文件，用 PowerShell 的 Expand-Archive 解压
+ * Fallback: 写 Buffer 到临时文件，用系统命令解压
+ * Windows 用 PowerShell Expand-Archive，Linux/macOS 用 unzip
  */
 async function extractZipFallback(
   zipBuffer: Buffer,
@@ -99,11 +100,23 @@ async function extractZipFallback(
 
   const { execFileSync } = await import("child_process");
   try {
-    execFileSync("powershell", [
-      "-NoProfile",
-      "-Command",
-      `Expand-Archive -Path '${tmpZip}' -DestinationPath '${targetDir}' -Force`,
-    ]);
+    if (process.platform === "win32") {
+      execFileSync("powershell", [
+        "-NoProfile",
+        "-Command",
+        `Expand-Archive -Path '${tmpZip}' -DestinationPath '${targetDir}' -Force`,
+      ]);
+    } else {
+      try {
+        execFileSync("unzip", ["-o", tmpZip, "-d", targetDir]);
+      } catch (err) {
+        throw new Error(
+          `解压失败: unzip 命令不可用或执行出错。请确保已安装 unzip (sudo apt install unzip)。原始错误: ${
+            err instanceof Error ? err.message : String(err)
+          }`
+        );
+      }
+    }
   } finally {
     try {
       fs.unlinkSync(tmpZip);
@@ -151,7 +164,7 @@ export async function extractTarGz(
 }
 
 /**
- * Fallback: 用 PowerShell 或 tar 命令解压 tar.gz
+ * Fallback: 用系统 tar 命令解压 tar.gz（Linux/macOS/Windows 10+ 均自带 tar）
  */
 async function extractTarGzFallback(
   tarGzBuffer: Buffer,
@@ -163,7 +176,7 @@ async function extractTarGzFallback(
 
   const { execFileSync } = await import("child_process");
   try {
-    // Windows 自带 tar
+    // tar 在 Linux/macOS/Windows 10+ 均可用
     execFileSync("tar", ["-xzf", tmpFile, "-C", targetDir]);
   } finally {
     try {
