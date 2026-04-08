@@ -97,8 +97,9 @@ export class SettingsPanel {
         if (!fs.existsSync(dir)) {
           try {
             fs.mkdirSync(dir, { recursive: true });
-          } catch {
-            vscode.window.showWarningMessage(`${t("msg.dirNotExist")}: ${dir}`);
+          } catch (err) {
+            const reason = err instanceof Error ? err.message : String(err);
+            vscode.window.showWarningMessage(`${t("msg.dirNotExist")}: ${dir} (${reason})`);
             break;
           }
         }

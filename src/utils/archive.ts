@@ -107,7 +107,15 @@ async function extractZipFallback(
         `Expand-Archive -Path '${tmpZip}' -DestinationPath '${targetDir}' -Force`,
       ]);
     } else {
-      execFileSync("unzip", ["-o", tmpZip, "-d", targetDir]);
+      try {
+        execFileSync("unzip", ["-o", tmpZip, "-d", targetDir]);
+      } catch (err) {
+        throw new Error(
+          `解压失败: unzip 命令不可用或执行出错。请确保已安装 unzip (sudo apt install unzip)。原始错误: ${
+            err instanceof Error ? err.message : String(err)
+          }`
+        );
+      }
     }
   } finally {
     try {
